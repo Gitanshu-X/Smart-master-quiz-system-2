@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in · Smart Quiz Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth-mode">
+  <header class="topbar">
+    <nav class="navbar">
+      <a class="brand" href="index.html"><i class="fas fa-brain"></i><span>Smart Quiz</span></a>
+      <div class="nav-actions"><a class="login-btn" href="index.html">Home</a></div>
+    </nav>
+  </header>
+  <main class="app-main">
+    <section class="auth-page">
+      <div class="auth-aside">
+        <p class="tag">Campus login</p>
+        <h1>Sign in to Smart Quiz Master</h1>
+        <p>Your account is saved in the website database file. Passwords are hashed. Card numbers are never stored.</p>
+        <ul class="auth-perks">
+          <li><i class="fas fa-shield-halved"></i> Student: demo@smartquiz.local</li>
+          <li><i class="fas fa-key"></i> Password: Demo@123</li>
+          <li><i class="fas fa-user-shield"></i> Admin: admin@smartquiz.local / Admin@123</li>
+        </ul>
+        <p class="creator-line">Website created by Gitanshu Sonkar</p>
+      </div>
+      <div class="auth-card login-card">
+        <div class="auth-brand-mini"><i class="fas fa-brain"></i> Smart Quiz Master</div>
+        <h2 id="formTitle">Welcome back</h2>
+        <p class="auth-sub" id="formSub">Use the email and password saved in the login database.</p>
+        <form id="loginForm" class="auth-form" method="post" action="login.html" novalidate>
+          <label>Email
+            <input name="email" type="email" autocomplete="email" required placeholder="you@campus.edu" />
+          </label>
+          <label>Password
+            <div class="pw-row">
+              <input name="password" type="password" autocomplete="current-password" required />
+              <button type="button" class="pw-toggle" id="showPassword" aria-label="Show password"><i class="fas fa-eye"></i></button>
+            </div>
+          </label>
+          <label class="check"><input type="checkbox" name="remember" /> Keep me signed in 30 days</label>
+          <p class="form-error" id="authError" hidden></p>
+          <button type="submit" class="start-btn wide">Sign in</button>
+          <div class="demo-row">
+            <button type="button" class="explore-btn" id="fillStudent">Fill demo student</button>
+            <button type="button" class="explore-btn" id="fillAdmin">Fill admin</button>
+          </div>
+          <p class="auth-switch">New here? <button type="button" class="linkish" id="showRegister">Create an account</button></p>
+        </form>
+        <form id="registerForm" class="auth-form" method="post" action="login.html" hidden novalidate>
+          <label>Full name <input name="name" required minlength="2" /></label>
+          <label>Email <input name="email" type="email" required /></label>
+          <label>Password
+            <div class="pw-row">
+              <input name="password" type="password" required />
+              <button type="button" class="pw-toggle" data-show aria-label="Show password"><i class="fas fa-eye"></i></button>
+            </div>
+          </label>
+          <label>Confirm <input name="confirm" type="password" required /></label>
+          <p class="form-error" id="regError" hidden></p>
+          <button type="submit" class="start-btn wide">Create account</button>
+          <p class="auth-switch"><button type="button" class="linkish" id="showLogin">Back to sign in</button></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="js/login-page.js"></script>
+</body>
+</html>

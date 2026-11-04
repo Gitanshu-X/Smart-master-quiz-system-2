@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Quiz Master</title>
+  <meta name="description" content="Practice quizzes, timed exams, and study help. Website created by Gitanshu Sonkar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-content">
+      <i class="fas fa-brain"></i>
+      <h2>Smart Quiz Master</h2>
+      <p>Preparing your quiz experience...</p>
+    </div>
+  </div>
+
+  <div id="progressBar"></div>
+  <div id="toastHost" class="toast-host" aria-live="polite"></div>
+
+  <header class="topbar">
+    <nav class="navbar">
+      <a class="brand" href="#/">
+        <i class="fas fa-brain"></i>
+        <span>Smart Quiz</span>
+      </a>
+      <button class="menu-btn" type="button" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#/" data-nav="home">Home</a></li>
+        <li><a href="#/categories" data-nav="categories">Categories</a></li>
+        <li><a href="#/exams" data-nav="exams">Exam Portal</a></li>
+        <li><a href="#/pricing" data-nav="pricing">Pricing</a></li>
+        <li><a href="#/wishlist" data-nav="wishlist">Wishlist</a></li>
+        <li><a href="#/guide" data-nav="guide">How to use</a></li>
+      </ul>
+      <form class="nav-search" id="globalSearchForm" autocomplete="off">
+        <i class="fas fa-search"></i>
+        <input id="globalSearch" type="search" placeholder="Search quizzes..." aria-label="Global search" />
+        <div id="searchSuggest" class="suggest-box" hidden></div>
+      </form>
+      <div class="nav-actions">
+        <button class="icon-btn" id="wishNavBtn" type="button" data-go="#/wishlist" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="badge-count" id="wishBadge" hidden>0</span>
+        </button>
+        <button class="icon-btn" id="bellBtn" type="button" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="badge-count" id="bellBadge" hidden>0</span>
+        </button>
+        <button class="dark-btn" type="button" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div id="authSlot"></div>
+      </div>
+    </nav>
+    <div id="notifyPanel" class="notify-panel" hidden></div>
+  </header>
+
+  <div class="layout">
+    <aside class="appside" id="appSide"></aside>
+    <main id="app" class="app-main"></main>
+  </div>
+
+  <footer class="footer site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><i class="fas fa-brain"></i><span>Smart Quiz Master</span></div>
+        <p>Practice quizzes, timed examinations, and study support for students.</p>
+        <div class="social-row">
+          <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#/">Home</a>
+        <a href="#/categories">Categories</a>
+        <a href="#/exams">Exam Portal</a>
+        <a href="#/search">Search</a>
+        <a href="#/wishlist">Wishlist</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#/guide">How to use</a>
+        <a href="#/pricing">Pricing</a>
+        <a href="#/support">Support tickets</a>
+        <a href="#/dashboard">Dashboard</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="#/privacy">Privacy Policy</a>
+        <a href="#/terms">Terms &amp; Conditions</a>
+        <p>support@smartquiz.local<br>+1 (555) 014-2026</p>
+      </div>
+    </div>
+    <p class="copy">© 2026 Smart Quiz Master. Website created by Gitanshu Sonkar.</p>
+    <p class="copy" id="serverStatus">Accounts are saved in the login database.</p>
+  </footer>
+
+  <button id="backToTop" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <div class="bot-dock">
+    <div id="botPanel" class="bot-panel" hidden>
+      <header class="bot-head">
+        <div>
+          <strong>QuizBot</strong>
+          <span>AI study helper</span>
+        </div>
+        <button type="button" id="botClose" aria-label="Close chat"><i class="fas fa-times"></i></button>
+      </header>
+      <div id="botLog" class="bot-log"></div>
+      <div class="bot-chips">
+        <button type="button" data-bot-chip="How does the exam portal work?">Exams</button>
+        <button type="button" data-bot-chip="Recommend a quiz for me">Recommend</button>
+        <button type="button" data-bot-chip="Explain overfitting">Explain</button>
+        <button type="button" data-bot-chip="Give me a study plan">Study plan</button>
+      </div>
+      <form id="botForm" class="bot-form">
+        <input id="botInput" type="text" placeholder="Ask about a topic..." autocomplete="off" />
+        <button type="submit" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+    <button type="button" id="botToggle" class="bot-toggle" aria-expanded="false" aria-controls="botPanel">
+      <i class="fas fa-robot"></i>
+      <span>QuizBot</span>
+    </button>
+  </div>
+
+  <div id="quizModal" class="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+    <div class="quiz-panel">
+      <div class="quiz-header">
+        <h2 id="quizTitle">Quiz</h2>
+        <div class="quiz-meta">
+          <span id="quizScore">Score: 0</span>
+          <span id="quizTimer">30s</span>
+        </div>
+        <button id="quizClose" type="button" aria-label="Close quiz">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="quizBody">
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-bar">
+            <div id="quizProgress" class="quiz-progress-fill"></div>
+          </div>
+          <span id="quizProgressText">Question 1 of 5</span>
+        </div>
+        <h3 id="quizQuestion">Question text</h3>
+        <div id="quizOptions" class="quiz-options"></div>
+        <button id="quizNext" type="button" class="quiz-next-btn" disabled>Next Question</button>
+      </div>
+      <div id="quizResult" class="quiz-result" hidden>
+        <div id="resultEmoji" class="result-emoji">🏆</div>
+        <h3>Quiz Complete!</h3>
+        <p id="resultScore" class="result-score">0 / 5</p>
+        <p id="resultMessage">Great job!</p>
+        <div class="result-actions">
+          <button id="quizRetry" type="button" class="quiz-start-btn">Try Again</button>
+          <button id="quizDone" type="button" class="explore-btn">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalHost" class="quiz-modal" role="dialog" aria-modal="true" hidden></div>
+
+  <div id="tour" class="tour" hidden></div>
+
+  <script src="quiz-data.js"></script>
+  <script src="js/catalog-extra.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/recommend.js"></script>
+  <script src="js/quiz-engine.js"></script>
+  <script src="js/exam.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/report.js"></script>
+  <script src="js/remote.js"></script>
+  <script src="js/app.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

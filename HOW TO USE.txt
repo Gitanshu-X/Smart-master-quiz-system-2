@@ -1,0 +1,54 @@
+SMART QUIZ MASTER
+Website created by Gitanshu Sonkar
+
+HOW TO OPEN THE WEBSITE
+  Double-click OPEN WEBSITE.bat in this folder.
+  It starts the server and opens the login page:
+  http://localhost:3000/login.html
+
+  Student: demo@smartquiz.local   Password: Demo@123
+  Admin:   admin@smartquiz.local   Password: Admin@123
+
+  Accounts are saved in server\data\login.db.
+  Do not open index.html by double-click. Use OPEN WEBSITE.bat.
+
+OPEN THE SITE MANUALLY
+1. Install dependencies once:
+   cd server
+   npm install
+2. Copy server/.env.example to server/.env.
+3. Start the site:
+   npm start
+4. Open http://localhost:3000
+
+You can still open index.html directly. Without the server, accounts, wishlist, exams, and tickets stay in this browser. They are not deleted.
+
+MYSQL
+- Install MySQL and set MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, and MYSQL_DATABASE in server/.env.
+- The server creates the database and tables on startup, then loads the quiz catalog.
+- If MySQL is not running, the website still opens and the footer says the database is not connected.
+
+DEMO ACCOUNTS
+- Student: demo@smartquiz.local / Demo@123
+- Admin:   admin@smartquiz.local / Admin@123
+These accounts are created in the browser on first visit and in MySQL when the server connects. Change the passwords before any real deployment.
+
+EMAIL, AI, AND PAYMENTS
+- Password reset and ticket email are sent only when SMTP_HOST is set. Otherwise the screen says email was not sent.
+- QuizBot uses AI_API_KEY on the server. If the key is empty, QuizBot answers from the on-site help and quiz explanations. The key is never placed in browser code.
+- During a graded exam, QuizBot will not reveal answers.
+- Razorpay stays in test mode. Put test key id, secret, and webhook secret in server/.env. A plan activates only after signature verification or a verified webhook. No card number is stored.
+- Live charges are refused while PAYMENTS_MODE is not an approved live setup. Leave PAYMENTS_MODE=test.
+
+WHAT IS INCLUDED
+- Navy and violet interface, light and dark mode, responsive layout.
+- Existing quizzes plus C, HTML, CSS, DBMS, data mining, AI, machine learning, data science, Excel, quantitative aptitude, and English communication, with difficulty levels.
+- Wishlist, student dashboard, badges, and charts from saved attempts.
+- Exam timer, question map, flags, autosave, resume until time expires, server-side grading when MySQL is connected, PDF score report.
+- Help center, support tickets with ids, admin users, prices, questions, and tickets.
+- Pricing page for Free, Pro, and Premium. Prices are editable in paise from Admin.
+
+SECURITY NOTES
+- Server passwords use bcrypt. Browser-only mode uses a salted hash because there is no server.
+- Admin APIs check the session role on the server.
+- Do not commit server/.env or uploads.
